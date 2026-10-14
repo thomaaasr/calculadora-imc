@@ -3,6 +3,7 @@ const { exec } = require("child_process");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const { calcularImc, classificarImc } = require("./imc");
 
 // Detectar o diretório real, mesmo dentro do .exe
 const basePath = process.pkg
@@ -40,17 +41,11 @@ app.post("/api/imc", (req, res) => {
       .json({ error: "Peso e altura devem ser números válidos." });
   }
 
-  const imc = p / (h * h);
+  const imc = calcularImc(p, h);
   const imcFinal = Math.round(imc * 10) / 10;
 
-  let classificacao = "";
-  if (imc < 18.5) classificacao = "magreza";
-  else if (imc <= 24.9) classificacao = "eutrofia";
-  else if (imc <= 29.9) classificacao = "sobrepeso";
-  else if (imc <= 34.9) classificacao = "obesidade grau I";
-  else if (imc <= 40) classificacao = "obesidade grau II";
-  else classificacao = "obesidade grau III";
-
+  const classificacao = classificarImc(imc);
+  
   return res.json({ imc: imcFinal, classificacao });
 });
 
