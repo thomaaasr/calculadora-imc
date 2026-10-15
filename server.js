@@ -42,7 +42,7 @@ app.post("/api/imc", (req, res) => {
   }
 
   const imc = calcularImc(p, h);
-  const imcFinal = Math.round(imc * 10) / 10;
+  const imcFinal = Math.round(imc * 100) / 100;
 
   const classificacao = classificarImc(imc);
   

@@ -1,6 +1,13 @@
 // main.js
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
+const { calcularImc, classificarImc } = require("../imc");
+
+// Responde aos pedidos de cálculo vindos da tela, usando a regra testada.
+ipcMain.handle("imc:calcular", (event, peso, altura) => {
+  const imc = calcularImc(peso, altura);
+  return { imc: Math.round(imc * 100) / 100, classificacao: classificarImc(imc) };
+});
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -9,7 +16,7 @@ function createWindow() {
     resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname, "renderer.js"),
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
