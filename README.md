@@ -9,6 +9,12 @@ regra de negócio, testada:
 Projeto desenvolvido no curso de *API Development com Node.js* (Impacta) e evoluído com
 correções, testes automatizados e uma arquitetura com a regra de negócio compartilhada.
 
+## Download
+
+Quer só usar a calculadora no Windows, sem instalar Node.js?
+Baixe o instalador na página da [versão mais recente](https://github.com/thomaaasr/calculadora-imc/releases/latest)
+(arquivo `Calculadora.IMC.Setup.1.0.0.exe`, em *Assets*).
+
 ## Arquitetura
 
 ```
